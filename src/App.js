@@ -13,9 +13,8 @@ import {BrowserRouter as Router, Link, Route} from 'react-router-dom'
 class App extends Component {
     constructor(props) {
         super(props);
-        this.state = {isLoggedIn : false};
+        this.state = {isLoggedIn : localStorage.getItem('isLoggedIn')===null?false : localStorage.getItem('isLoggedIn')};
     }
-
     render() {
         const LoginView = () => (
             <Login/>
@@ -30,19 +29,16 @@ class App extends Component {
                         <img src={logo} className="App-logo" alt="logo"/>
                         <h1 className="App-title">TODO React App</h1>
                     </header>
-
-                    <br/>
-                    <br/>
-
-                    <ul>
-                        <li><Link to="/">Login</Link></li>
-                        <li><Link to="/todo">Todo</Link></li>
-                    </ul>
-
-                    <div>
-                        <Route exact path="/" component={LoginView}/>
-                        <Route path="/todo" component={TodoAppView}/>
-                    </div>
+                   {localStorage.getItem('IsLoggedIn')==="true"
+                      ?<li>
+                            <Link to="/todo">Todo</Link>
+                            <Route path="/todo" component={TodoAppView}/>
+                       </li>
+                      :<li>
+                            <Link to="/">Login</Link>
+                            <Route exact path="/" component={LoginView}/>
+                       </li>
+                   }
                 </div>
             </Router>
         );
