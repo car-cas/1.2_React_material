@@ -12,12 +12,18 @@ import './Login.css'
 
 
 export class Login extends React.Component{
-
+    constructor(props){
+            super(props);
+            this.state ={user:"",pass:""};
+            this.handleSubmit = this.handleSubmit.bind(this);
+            this.handleUser = this.handleUser.bind(this);
+            this.handlePass = this.handlePass.bind(this);
+    }
     render(){
         return (
             <React.Fragment>
                 <CssBaseline />
-                <main className="layout">
+                <main className="layout" onSubmit={this.handleSubmit}>
                     <Paper className="paper">
                         <Avatar className="avatar">
                             <LockIcon />
@@ -26,7 +32,7 @@ export class Login extends React.Component{
                         <form className="form">
                             <FormControl margin="normal" required fullWidth>
                                 <InputLabel htmlFor="email">Email Address</InputLabel>
-                                <Input id="email" name="email" autoComplete="email" autoFocus />
+                                <Input id="email" name="email" autoComplete="email"  value = {this.state.email} onChange = {this.handleUser} autoFocus />
                             </FormControl>
                             <FormControl margin="normal" required fullWidth>
                                 <InputLabel htmlFor="password">Password</InputLabel>
@@ -35,6 +41,9 @@ export class Login extends React.Component{
                                     type="password"
                                     id="password"
                                     autoComplete="current-password"
+                                    value = {this.state.password}
+                                    onChange = {this.handlePass}
+                                    autoFocus
                                 />
                             </FormControl>
                             <Button
@@ -51,6 +60,17 @@ export class Login extends React.Component{
                 </main>
             </React.Fragment>
         );
+    }
+    handleUser(user){
+            this.setState({email: user.target.value});
+    }
+    handlePass(pass){
+        this.setState({password: pass.target.value});
+    }
+    handleSubmit(){
+        if (localStorage.getItem("email") === this.state.email && localStorage.getItem("password") === this.state.password){
+            localStorage.setItem("isLoggedIn", true);
+        }
     }
 
 }
