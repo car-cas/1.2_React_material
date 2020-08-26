@@ -5,6 +5,7 @@ import {TodoList} from "./TodoList";
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import moment from "moment";
+import { TextField, Button, DatePickers } from "@material-ui/core";
 
 export class TodoApp extends Component {
     constructor(props) {
@@ -27,28 +28,13 @@ export class TodoApp extends Component {
                 <br/>
                 <form onSubmit={this.handleSubmit} className="todo-form">
                     <h3>New TODO</h3>
-                    <label htmlFor="text" className="right-margin">
-                        Text:
-                    </label>
-
-                    <input
-                        id="text"
-                        onChange={this.handleTextChange}
-                        value={this.state.text}>
-                    </input>
+                    <TextField id="text" onChange={this.handleTextChange} value={this.state.text} label="Text" >  </TextField>
 
                     <br/>
                     <br/>
-                    <label htmlFor="priority" className="right-margin">
-                        Priority:
-                    </label>
 
-                    <input
-                        id="priority"
-                        type="number"
-                        onChange={this.handlePriorityChange}
-                        value={this.state.priority}>
-                    </input>
+                    <TextField id="priority" type="number" onChange={this.handlePriorityChange} value={this.state.priority} label="Priority" >  </TextField>
+
                     <br/>
                     <br/>
 
@@ -58,6 +44,7 @@ export class TodoApp extends Component {
                         placeholderText="Due date"
                         onChange={this.handleDateChange}>
                     </DatePicker>
+                    <br/>
                     <br/>
                     <button>
                         Add #{this.state.items.length + 1}
